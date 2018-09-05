@@ -10,7 +10,7 @@
 #    zhuxu@taobao.com  < http://weibo.com/orzdba >
 # 
 
-
+use File::Lockfile;
 use strict;
 use Getopt::Long;                             # Usage Info URL:  http://perldoc.perl.org/Getopt/Long.html
 use POSIX qw(strftime);                       # Usage Info URL:  http://perldoc.perl.org/functions/localtime.html
@@ -158,8 +158,9 @@ $SIG{INT} = \&catch_zap;
 
 # 
 my $MYSQL    = qq{mysql -s --skip-column-names -uroot -P$port };
+# my $MYSQL    = qq{mysql -s --skip-column-names --login-path=mysqldba -P$port };
 $MYSQL      .= qq{-S$socket } if defined $socket;
-my $TCPRSTAT = "/usr/bin/tcprstat --no-header -t 1 -n 0 -p $port";
+my $TCPRSTAT = "./tcprstat --no-header -t 1 -n 0 -p $port";
 
 &print_title();
 
